@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scenescout"
+version = "0.3.0"
+description = "SceneScout - OpenUSD asset inspection desktop application"
+requires-python = ">=3.11,<3.15"
+dependencies = ["PySide6-Essentials>=6.8,<7", "usd-core>=25.5,<28"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+scenescout = "scenescout.app:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

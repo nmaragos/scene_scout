@@ -1,0 +1,9 @@
+#usda 1.0
+
+over "Pump"
+{
+    over "Bracket"
+    {
+        double3 xformOp:translate = (0.38, 0, 0)
+    }
+}

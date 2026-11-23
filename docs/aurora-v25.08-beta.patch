@@ -1,0 +1,184 @@
+diff --git a/Libraries/Aurora/Source/DirectX/DirectXHeaders.h b/Libraries/Aurora/Source/DirectX/DirectXHeaders.h
+index 9140985..e5a8bf6 100644
+--- a/Libraries/Aurora/Source/DirectX/DirectXHeaders.h
++++ b/Libraries/Aurora/Source/DirectX/DirectXHeaders.h
+@@ -24,9 +24,6 @@
+ // d3dx12.h is a local include. It was acquired from https://github.com/microsoft/DirectX-Headers
+ #include "DirectXHeaders/d3dx12.h"
+ 
+-// Microsoft Active Template library
+-#include <atlbase.h>
+-
+ // DirectX 12 smart pointers.
+ // NOTE: ComPtr is recommended. See https://github.com/Microsoft/DirectXTK/wiki/ComPtr.
+ #include <wrl/client.h>
+diff --git a/Libraries/Aurora/Source/DirectX/PTScene.cpp b/Libraries/Aurora/Source/DirectX/PTScene.cpp
+index 3faaf81..5a71da3 100644
+--- a/Libraries/Aurora/Source/DirectX/PTScene.cpp
++++ b/Libraries/Aurora/Source/DirectX/PTScene.cpp
+@@ -782,7 +782,7 @@ void PTScene::updateResources()
+             // Increment by size of fixed-length header.
+             globalMaterialBufferSize += sizeof(MaterialHeader);
+ 
+-            AU_ASSERT(sizeof(MaterialHeader) == kMaterialHeaderSize, "Header size mismatch");
++            static_assert(sizeof(MaterialHeader) == kMaterialHeaderSize, "Header size mismatch");
+ 
+             // Increment by size of this material's properties.
+             globalMaterialBufferSize += mtl.uniformBuffer().size();
+@@ -993,7 +993,7 @@ void PTScene::updateAccelerationStructure()
+ 
+             // Move offset past header.
+             instanceBufferOffset += kInstanceDataHeaderSize;
+-            AU_ASSERT(kInstanceDataHeaderSize == sizeof(InstanceDataHeader),
++            static_assert(kInstanceDataHeaderSize == sizeof(InstanceDataHeader),
+                 "Instance header size mismatch");
+ 
+             // Move offset past layer information.
+diff --git a/Libraries/Aurora/Source/WindowsHeaders.h b/Libraries/Aurora/Source/WindowsHeaders.h
+index ae481ac..ab10543 100644
+--- a/Libraries/Aurora/Source/WindowsHeaders.h
++++ b/Libraries/Aurora/Source/WindowsHeaders.h
+@@ -29,9 +29,6 @@
+ #include <dxgi1_6.h>
+ #include <dxgidebug.h>
+ 
+-// Microsoft Active Template library
+-#include <atlbase.h>
+-
+ // DirectX 12 smart pointers.
+ // NOTE: ComPtr is recommended. See https://github.com/Microsoft/DirectXTK/wiki/ComPtr.
+ #include <wrl/client.h>
+diff --git a/Libraries/HdAurora/HdAuroraRenderBuffer.cpp b/Libraries/HdAurora/HdAuroraRenderBuffer.cpp
+index 91c8b33..8dcc176 100644
+--- a/Libraries/HdAurora/HdAuroraRenderBuffer.cpp
++++ b/Libraries/HdAurora/HdAuroraRenderBuffer.cpp
+@@ -14,6 +14,8 @@
+ #include "pch.h"
+ 
+ #include "HdAuroraRenderBuffer.h"
++
++#include <cstring>
+ #include "HdAuroraRenderDelegate.h"
+ 
+ #include <GL/glew.h>
+@@ -426,55 +428,24 @@ void HdAuroraRenderBuffer::Resolve()
+     if (!pixelData)
+         return;
+ 
+-    size_t bytesPerPixel = 16;
+-    switch (GetFormat())
++    // D3D12 readback rows can contain padding. Upload only the visible pixels.
++    const size_t rowBytes = HdDataSizeOfFormat(GetFormat()) * GetWidth();
++    if (stride < rowBytes)
+     {
+-    case pxr::HdFormatFloat32:
+-    case pxr::HdFormatUNorm8Vec4:
+-        bytesPerPixel = 4;
+-        break;
+-    case pxr::HdFormatFloat16Vec4:
+-        bytesPerPixel = 8;
+-        break;
+-    case pxr::HdFormatUNorm8:
+-    case pxr::HdFormatUNorm8Vec2:
+-    case pxr::HdFormatUNorm8Vec3:
+-    case pxr::HdFormatSNorm8:
+-    case pxr::HdFormatSNorm8Vec2:
+-    case pxr::HdFormatSNorm8Vec3:
+-    case pxr::HdFormatSNorm8Vec4:
+-    case pxr::HdFormatFloat16:
+-    case pxr::HdFormatFloat16Vec2:
+-    case pxr::HdFormatFloat16Vec3:
+-    case pxr::HdFormatFloat32Vec2:
+-    case pxr::HdFormatFloat32Vec3:
+-    case pxr::HdFormatFloat32Vec4:
+-    case pxr::HdFormatUInt16:
+-    case pxr::HdFormatUInt16Vec2:
+-    case pxr::HdFormatUInt16Vec3:
+-    case pxr::HdFormatUInt16Vec4:
+-    case pxr::HdFormatInt16:
+-    case pxr::HdFormatInt16Vec2:
+-    case pxr::HdFormatInt16Vec3:
+-    case pxr::HdFormatInt16Vec4:
+-    case pxr::HdFormatInt32:
+-    case pxr::HdFormatInt32Vec2:
+-    case pxr::HdFormatInt32Vec3:
+-    case pxr::HdFormatInt32Vec4:
+-    case pxr::HdFormatFloat32UInt8:
+-    case pxr::HdFormatInvalid:
+-    case pxr::HdFormatCount:
+-        break;
++        TF_RUNTIME_ERROR("Aurora returned a row stride smaller than the color or depth AOV.");
++        return;
+     }
+-
+-    int actualWidth = static_cast<int>(stride / bytesPerPixel);
+-
+-    pxr::GfVec3i dim(actualWidth, static_cast<int>(GetHeight()), 1);
+-
+-    // populate with data from render buffer
+-    texDesc.dimensions     = dim;
+-    texDesc.initialData    = pixelData;
+-    texDesc.pixelsByteSize = stride * GetHeight();
++    std::vector<unsigned char> packedPixels;
++    if (stride != rowBytes)
++    {
++        packedPixels.resize(rowBytes * GetHeight());
++        const auto* source = static_cast<const unsigned char*>(pixelData);
++        for (size_t y = 0; y < GetHeight(); ++y)
++            std::memcpy(packedPixels.data() + y * rowBytes, source + y * stride, rowBytes);
++        pixelData = packedPixels.data();
++    }
++    texDesc.initialData = pixelData;
++    texDesc.pixelsByteSize = rowBytes * GetHeight();
+ 
+     bool hasTexture = static_cast<bool>(_texture);
+     if (hasTexture && texDesc != _texture->GetDescriptor())
+diff --git a/Libraries/HdAurora/HdAuroraRenderPass.cpp b/Libraries/HdAurora/HdAuroraRenderPass.cpp
+index b5e1b31..f91bafd 100644
+--- a/Libraries/HdAurora/HdAuroraRenderPass.cpp
++++ b/Libraries/HdAurora/HdAuroraRenderPass.cpp
+@@ -100,7 +100,7 @@ void HdAuroraRenderPass::_Execute(
+         // AOV)
+ 
+         // Clear the current buffers
+-        _renderBuffers[HdAovTokens->color] = nullptr;
++        _renderBuffers.clear();
+         _ownedRenderBuffer.reset();
+ 
+         // Find the color buffer in the AOV bindings
+@@ -199,7 +199,11 @@ void HdAuroraRenderPass::_Execute(
+     _owner->SetSampleRestartNeeded(false);
+ 
+     // Use HdAuroraRenderPass::IsConverged() here as it supports Rasterization and Path Tracing
+-    _renderBuffers[HdAovTokens->color]->SetConverged(IsConverged());
++    const bool converged = IsConverged();
++    _renderBuffers[HdAovTokens->color]->SetConverged(converged);
++    const auto depth = _renderBuffers.find(HdAovTokens->depth);
++    if (depth != _renderBuffers.end() && depth->second)
++        depth->second->SetConverged(converged);
+ 
+     // If render pass owns the render buffer, we are responsible for doing the BLIT to the GL FBO
+     if (_ownedRenderBuffer)
+diff --git a/Scripts/installExternals.py b/Scripts/installExternals.py
+index 548cddf..e729c67 100644
+--- a/Scripts/installExternals.py
++++ b/Scripts/installExternals.py
+@@ -179,7 +179,8 @@ def InstallBoost_Helper(context, force, buildArgs):
+                                 " linkflags=\"{0}\"".format(macOSArch)
+             bootstrapCmd += " --with-toolset=clang"
+         elif Windows():
+-            bootstrapCmd += " \"{0}\"".format(bsToolset)
++            # Boost reads the Windows toolset from the first argument.
++            bootstrapCmd = f"{bootstrap} {bsToolset}"
+ 
+         Run(bootstrapCmd)
+ 
+@@ -600,7 +601,7 @@ def InstallOpenEXR(context, force, buildArgs):
+         # Add on any user-specified extra arguments.
+         extraArgs += buildArgs
+ 
+-        RunCMake(context, True, OPENEXR_INSTALL_FOLDER, extraArgs)
++        RunCMake(context, False, OPENEXR_INSTALL_FOLDER, extraArgs)
+ 
+ OPENEXR = Dependency(OPENEXR_INSTALL_FOLDER, OPENEXR_PACKAGE_NAME, InstallOpenEXR, OPENEXR_URL, "include/OpenEXR/ImfVersion.h")
+ 

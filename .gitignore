@@ -1,0 +1,29 @@
+# Python environments, build artifacts and caches
+/.venv/
+/venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+/.pytest_cache/
+/.ruff_cache/
+/.mypy_cache/
+/build/
+/dist/
+/.coverage
+/htmlcov/
+
+# Local SDKs, credentials and configuration
+/.aurora-runtime/
+/.aws/
+/.agents/
+/.codex/
+/.env
+/.env.*
+/scenescout.local.toml
+
+# Workstation notes and exported reviews
+/HANDOFF.md
+/review*.html
+/*.scenescout*.json
+/scenescout-snapshot*.json
+/SceneScout-Aurora-Kitchen-Wipe.png

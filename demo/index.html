@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore a layered OpenUSD publish comparison with SceneScout.">
+  <title>SceneScout · Pump publish review</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="assets/findings.js" defer></script>
+  <script src="review.js" defer></script>
+</head>
+<body>
+  <header class="brand-bar">
+    <div class="shell brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <strong>SceneScout</strong>
+      <span class="brand-context">OpenUSD publish review</span>
+    </div>
+  </header>
+  <main class="shell">
+    <header class="intro">
+      <h1>Pump publish review</h1>
+      <p>Drag the divider to compare the two publishes. Select a finding to see where the change was authored.</p>
+    </header>
+    <div class="workspace">
+      <figure class="preview panel">
+        <div class="panel-header">
+          <h2>A/B comparison</h2>
+          <span class="muted">Fixed-camera previews</span>
+        </div>
+        <div class="wipe" id="wipe">
+          <img src="assets/pump-v013.png" alt="Stage B. Copper pump housing with the support bracket shifted outward.">
+          <img class="wipe-before" src="assets/pump-v012.png" alt="Stage A. Blue pump housing with the support bracket closer to the housing.">
+          <div class="divider" aria-hidden="true"><span>‹ ›</span></div>
+          <input id="wipe-position" type="range" min="0" max="100" value="50" aria-label="Stage A image shown">
+        </div>
+        <figcaption class="stage-controls">
+          <button type="button" data-wipe="100" title="Show Stage A in full"><b class="badge badge-a">A</b> pump_v012</button>
+          <button type="button" class="reset" data-wipe="50">Reset wipe</button>
+          <button type="button" data-wipe="0" title="Show Stage B in full"><b class="badge badge-b">B</b> pump_v013</button>
+        </figcaption>
+      </figure>
+      <section class="panel findings" aria-labelledby="findings-heading">
+        <div class="panel-header">
+          <h2 id="findings-heading">Findings</h2>
+          <span id="finding-count" class="muted" aria-live="polite"></span>
+        </div>
+        <div class="findings-body">
+          <label class="filter-label" for="category">Category</label>
+          <select id="category">
+            <option value="">All categories</option>
+          </select>
+          <ul id="finding-list"></ul>
+        </div>
+      </section>
+    </div>
+    <section class="panel evidence" aria-labelledby="evidence-heading">
+      <div class="panel-header">
+        <h2 id="evidence-heading">Finding evidence</h2>
+        <span id="selected-path" class="muted"></span>
+      </div>
+      <div class="evidence-body" aria-live="polite">
+        <h3 id="selected-label"></h3>
+        <div class="evidence-grid" id="evidence-grid"></div>
+      </div>
+    </section>
+    <noscript><p>Enable JavaScript to explore findings and move the comparison divider.</p></noscript>
+  </main>
+</body>
+</html>

@@ -1,0 +1,39 @@
+#usda 1.0
+(
+    defaultPrim = "Asset"
+    upAxis = "Y"
+    metersPerUnit = 1
+    timeCodesPerSecond = 24
+)
+
+def Xform "Asset" (
+    kind = "component"
+    variants = {
+        string model = "high"
+    }
+    prepend variantSets = "model"
+)
+{
+    def Scope "Looks" {
+        def Material "Metal" {
+            token outputs:surface
+        }
+        def Material "Plastic" {
+            token outputs:surface
+        }
+    }
+    variantSet "model" = {
+        "low" {
+            def Cube "Body" {
+                double size = 2
+                rel material:binding = </Asset/Looks/Metal>
+            }
+        }
+        "high" {
+            def Cube "Body" {
+                double size = 3.5
+                rel material:binding = </Asset/Looks/Plastic>
+            }
+        }
+    }
+}

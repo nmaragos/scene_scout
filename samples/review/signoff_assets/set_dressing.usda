@@ -1,0 +1,468 @@
+#usda 1.0
+
+class Xform "_Dressing"
+{
+    def Cube "Tile_00"
+    {
+        double size = 0.25
+        double3 xformOp:translate = (0.0, 0, 0.0)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+    def Cube "Tile_01"
+    {
+        double size = 0.25
+        double3 xformOp:translate = (0.3333333333333333, 0, 0.0)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+    def Cube "Tile_02"
+    {
+        double size = 0.25
+        double3 xformOp:translate = (0.6666666666666666, 0, 0.0)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+    def Cube "Tile_03"
+    {
+        double size = 0.25
+        double3 xformOp:translate = (1.0, 0, 0.0)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+    def Cube "Tile_04"
+    {
+        double size = 0.25
+        double3 xformOp:translate = (1.3333333333333333, 0, 0.0)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+    def Cube "Tile_05"
+    {
+        double size = 0.25
+        double3 xformOp:translate = (1.6666666666666667, 0, 0.0)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+    def Cube "Tile_06"
+    {
+        double size = 0.25
+        double3 xformOp:translate = (0.0, 0, 0.3333333333333333)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+    def Cube "Tile_07"
+    {
+        double size = 0.25
+        double3 xformOp:translate = (0.3333333333333333, 0, 0.3333333333333333)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+    def Cube "Tile_08"
+    {
+        double size = 0.25
+        double3 xformOp:translate = (0.6666666666666666, 0, 0.3333333333333333)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+    def Cube "Tile_09"
+    {
+        double size = 0.25
+        double3 xformOp:translate = (1.0, 0, 0.3333333333333333)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+    def Cube "Tile_10"
+    {
+        double size = 0.25
+        double3 xformOp:translate = (1.3333333333333333, 0, 0.3333333333333333)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+    def Cube "Tile_11"
+    {
+        double size = 0.25
+        double3 xformOp:translate = (1.6666666666666667, 0, 0.3333333333333333)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+}
+
+over "Publish"
+{
+    def Scope "SetDressing"
+    {
+        def Xform "Group_00" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (-7, 0, 3)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_01" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (-5, 0, 3)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_02" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (-3, 0, 3)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_03" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (-1, 0, 3)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_04" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (1, 0, 3)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_05" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (3, 0, 3)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_06" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (5, 0, 3)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_07" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (7, 0, 3)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_08" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (-7, 0, 5)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_09" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (-5, 0, 5)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_10" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (-3, 0, 5)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_11" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (-1, 0, 5)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_12" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (1, 0, 5)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_13" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (3, 0, 5)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_14" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (5, 0, 5)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_15" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (7, 0, 5)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_16" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (-7, 0, 7)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_17" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (-5, 0, 7)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_18" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (-3, 0, 7)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_19" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (-1, 0, 7)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_20" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (1, 0, 7)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_21" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (3, 0, 7)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_22" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (5, 0, 7)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_23" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (7, 0, 7)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_24" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (-7, 0, 9)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_25" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (-5, 0, 9)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_26" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (-3, 0, 9)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_27" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (-1, 0, 9)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_28" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (1, 0, 9)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_29" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (3, 0, 9)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_30" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (5, 0, 9)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_31" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (7, 0, 9)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_32" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (-7, 0, 11)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_33" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (-5, 0, 11)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_34" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (-3, 0, 11)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_35" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (-1, 0, 11)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_36" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (1, 0, 11)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_37" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (3, 0, 11)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_38" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (5, 0, 11)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_39" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (7, 0, 11)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_40" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (-7, 0, 13)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_41" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (-5, 0, 13)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_42" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (-3, 0, 13)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_43" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (-1, 0, 13)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_44" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (1, 0, 13)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_45" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (3, 0, 13)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_46" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (5, 0, 13)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Group_47" (
+            instanceable = true
+            prepend references = </_Dressing>
+        )
+        {
+            double3 xformOp:translate = (7, 0, 13)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+    }
+}
